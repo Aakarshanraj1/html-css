@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrintNow - Custom Clothing, Delivered Instantly</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ff6b35;
+            --secondary: #00d4ff;
+            --dark: #0a0a0a;
+            --darker: #000;
+            --light: #fff;
+            --gray: #1a1a1a;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Canvas */
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 107, 53, 0.1);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        nav a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 13px;
+            margin-left: 30px;
+            transition: color 0.3s;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        .content {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .hero-content {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 107, 53, 0.15);
+            border: 1px solid rgba(255, 107, 53, 0.4);
+            color: var(--primary);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: clamp(42px, 10vw, 92px);
+            font-weight: 900;
+            line-height: 1.05;
+            margin-bottom: 25px;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, var(--light) 0%, var(--primary) 50%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: #888;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 40px;
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.4s;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #ff8c42);
+            color: white;
+            box-shadow: 0 20px 50px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 30px 70px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            border: 1.5px solid rgba(255, 107, 53, 0.5);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 107, 53, 0.15);
+            border-color: var(--primary);
+        }
+
+        /* Sections */
+        section {
+            min-height: 100vh;
+            padding: 80px 40px;
+            position: relative;
+            z-index: 10;
+            background: rgba(10, 10, 10, 0.9);
+        }
+
+        .section-title {
+            font-size: clamp(32px, 8vw, 64px);
+            font-weight: 900;
+            margin-bottom: 60px;
+            text-align: center;
+            letter-spacing: -1px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: rgba(255, 107, 53, 0.08);
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            padding: 40px;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(0, 212, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: -1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            border-color: rgba(255, 107, 53, 0.6);
+            box-shadow: 0 30px 60px rgba(255, 107, 53, 0.15);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .feature-text {
+            color: #aaa;
+            line-height: 1.8;
+        }
+
+        /* Process Section */
+        .process {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), #ff8c42);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 900;
+            margin: 0 auto 20px;
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.3);
+        }
+
+        .step-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .step-description {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .step::after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            top: 25px;
+            font-size: 28px;
+            color: rgba(255, 107, 53, 0.3);
+        }
+
+        .step:last-child::after {
+            content: '';
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .stat {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #aaa;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 60px 40px 40px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 107, 53, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        footer p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .social-links a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 20px;
+                padding: 15px;
+            }
+
+            nav a {
+                margin-left: 0;
+                margin-right: 20px;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .step::after {
+                content: '↓';
+                right: auto;
+                top: auto;
+                bottom: -30px;
+            }
+
+            .step:last-child::after {
+                content: '';
+            }
+
+            section {
+                padding: 40px 20px;
+            }
+
+            .hero {
+                padding: 20px;
+            }
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff8c42;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">PHUREL</div>
+        <div>
+            <a href="#features">Features</a>
+            <a href="#process">How it works</a>
+            <a href="#stats">Impact</a>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="badge">⚡ Fast-Track Fashion</div>
+                <h1>Wear your own story<br><span class="gradient-text">—today.</span></h1>
+                <p class="hero-subtitle">Custom apparel in hours, not weeks. We're DoorDash for custom clothing.</p>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary">Start Designing</button>
+                    <button class="btn btn-secondary">Watch Demo</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features">
+            <h2 class="section-title">How We're <span class="gradient-text">Different</span></h2>
+            <div class="features-grid">
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Same-Day Delivery</h3>
+                    <p class="feature-text">Design, print, and receive your custom apparel within hours—not days. Hyperlocal fulfillment studios near you.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">🎨</div>
+                    <h3 class="feature-title">Unlimited Design</h3>
+                    <p class="feature-text">Upload any design, customize colors, sizes, and placement. Full creative control through our intuitive app.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">📍</div>
+                    <h3 class="feature-title">Hyperlocal Network</h3>
+                    <p class="feature-text">Franchise studios equipped with printing and embroidery. Cloud kitchen for clothing—produce in real time.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">💰</div>
+                    <h3 class="feature-title">Affordable Scale</h3>
+                    <p class="feature-text">No setup fees. Pay only for what you order. Perfect for individuals, teams, and corporate gifting.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">🔄</div>
+                    <h3 class="feature-title">Repeat Made Easy</h3>
+                    <p class="feature-text">Save your designs. Reorder anytime. Build habitual custom apparel ordering—like food delivery.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">🌍</div>
+                    <h3 class="feature-title">Smart Routing</h3>
+                    <p class="feature-text">Match you to the nearest studio. Real-time inventory. Instant dispatch. Always optimized for speed.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section id="process" class="process">
+            <h2 class="section-title">The <span class="gradient-text">Workflow</span></h2>
+            <div class="process-steps">
+                <div class="step scroll-reveal">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Design</h3>
+                    <p class="step-description">Upload your design or use our templates</p>
+                </div>
+                <div class="step scroll-reveal">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Customize</h3>
+                    <p class="step-description">Pick colors, sizes, placement</p>
+                </div>
+                <div class="step scroll-reveal">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Print</h3>
+                    <p class="step-description">Sent to nearest studio instantly</p>
+                </div>
+                <div class="step scroll-reveal">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Wear</h3>
+                    <p class="step-description">Delivered same day to your door</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section id="stats">
+            <h2 class="section-title">By the <span class="gradient-text">Numbers</span></h2>
+            <div class="stats">
+                <div class="stat scroll-reveal">
+                    <div class="stat-number">2-4 hrs</div>
+                    <div class="stat-label">Average Turnaround</div>
+                </div>
+                <div class="stat scroll-reveal">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Studios Planned Year 1</div>
+                </div>
+                <div class="stat scroll-reveal">
+                    <div class="stat-number">3x</div>
+                    <div class="stat-label">Faster Than Competition</div>
+                </div>
+                <div class="stat scroll-reveal">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Design Possibilities</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2024 PHUREL. Wear your story —today.</p>
+            <div class="social-links">
+                <a href="#">Twitter</a>
+                <a href="https://www.instagram.com/phurel_/" target="_blank">Instagram</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">TikTok</a>
+            </div>
+            <p style="color: #444; font-size: 12px; margin-top: 20px;">Made for the future of custom fashion</p>
+        </footer>
+    </div>
+
+    <script>
+        // Three.js Scene Setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas'), alpha: true, antialias: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        camera.position.z = 5;
+
+        // Create animated objects
+        const geometry = new THREE.IcosahedronGeometry(1.5, 4);
+        const material = new THREE.MeshPhongMaterial({
+            color: 0xff6b35,
+            emissive: 0xff6b35,
+            emissiveIntensity: 0.3,
+            wireframe: false
+        });
+        const mesh = new THREE.Mesh(geometry, material);
+        scene.add(mesh);
+
+        // Add second floating shape
+        const geometry2 = new THREE.OctahedronGeometry(1, 3);
+        const material2 = new THREE.MeshPhongMaterial({
+            color: 0x00d4ff,
+            emissive: 0x00d4ff,
+            emissiveIntensity: 0.2,
+            wireframe: false
+        });
+        const mesh2 = new THREE.Mesh(geometry2, material2);
+        mesh2.position.x = 3;
+        mesh2.position.y = 2;
+        scene.add(mesh2);
+
+        // Lighting
+        const light1 = new THREE.PointLight(0xff6b35, 1, 100);
+        light1.position.set(5, 5, 5);
+        scene.add(light1);
+
+        const light2 = new THREE.PointLight(0x00d4ff, 1, 100);
+        light2.position.set(-5, -5, 5);
+        scene.add(light2);
+
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+        scene.add(ambientLight);
+
+        // Mouse tracking
+        let mouseX = 0;
+        let mouseY = 0;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        // Scroll detection for scroll reveals
+        const scrollReveals = document.querySelectorAll('.scroll-reveal');
+        
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        scrollReveals.forEach(el => observer.observe(el));
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotate meshes
+            mesh.rotation.x += 0.003;
+            mesh.rotation.y += 0.005;
+            
+            mesh2.rotation.x -= 0.004;
+            mesh2.rotation.y -= 0.006;
+
+            // Follow mouse
+            mesh.position.x += (mouseX * 2 - mesh.position.x) * 0.05;
+            mesh.position.y += (mouseY * 2 - mesh.position.y) * 0.05;
+
+            mesh2.position.x += 3 + (mouseX * 1 - mesh2.position.x) * 0.05;
+            mesh2.position.y += 2 + (mouseY * 1 - mesh2.position.y) * 0.05;
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Handle resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
