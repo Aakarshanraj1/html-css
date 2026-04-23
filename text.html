@@ -68,10 +68,14 @@
      padding-left: 30px;
      opacity:0.8;
      cursor:pointer;
+      box-shadow:  0px 5px 8px rgba(0,0,0,0.8);
 
  }
  .get:active{
     opacity:0.6;
+     box-shadow:  0px 0px 50px rgba(0,0,0,1);
+     margin-top: 4px;
+
  }
  .shop{
     font-family:arial;
@@ -90,6 +94,7 @@
     font-family:arial;
     font-size:20px;
     text-align:center;
+    margin-bottom: 60px;
 
  }
  .learn:hover{
@@ -103,21 +108,94 @@
    font-size: 20px;
    text-align:center;
    margin-bottom: 10px;
+   
 
  }
  .super{
    font-size:60px;
    text-align: center;
    margin-bottom: 10px;
+   margin-top: 0;
 
  }
  .new{
    color:orange;
-   font-size:10px;
+   font-size:20px;
    text-align:center;
    margin-bottom: 10px;
 
  }
+ .price{
+   text-align: center;
+ }
+ .buy{
+   background-color: blue;
+   color: white;
+   padding-left:16px;
+   padding-right: 16;
+   padding-top: 6;
+   padding-bottom: 6;
+   border:none;
+   border-radius: 15px;
+   font-weight:bold;
+   transition: 0.25s;
+   margin-left: 290px;
+   text-align: center;
+   margin-bottom:100px;
+ }
+ .buy:hover{
+   opacity: 0.8;
+      padding-left:30px;
+   padding-right: 30;
+   cursor: pointer;
+   box-shadow:  0px 5px 8px rgba(0,0,0,1);
+
+ }
+ .buy:active{
+   opacity: 0.6;
+   margin-top:4px;
+  box-shadow:  0px 0px 100px rgba(0,0,0,1);
+
+ }
+ .pre{
+   font-size:50px;
+   margin-bottom: 0;
+ }
+ .usd{
+   font-size:25px;
+   color: gray;
+ }
+ .today{
+   color:green;
+   font-size: 20px;
+   margin-top: 10;
+   margin-bottom: 0;
+ }
+ .after{
+   color: gray;
+   font-size: 20px;
+   margin-top: 10px;
+   margin-bottom: 100px;
+ }
+ .dec{
+   color:red;
+ }
+ .free{
+   font-weight:bold;
+   
+ }
+ .code{
+   color: gray;
+   font-weight:lighter;
+ }
+ .as{
+   width:500px;
+ }
+ .chp{
+  color: rgb(18, 118, 185);
+
+ }
+
 </style>
 
 <p class="tahoma">This is tahoma font</p>
@@ -133,5 +211,11 @@
 <p class="new">New</p>
 <p class="mac">MacBook Pro</p>
 <p class="super">Supercharged for pros.</p>
-<p>From $1999</p>
+<p class="price">From $1999</p>
 <button class="buy">Buy</button>
+<p class="pre">1,049.61 <span class="usd">USD</span></p>
+<p class="today">+18.05 (1.75%) today</p>
+<p class="after">After hours 1.048.00 <span class="dec">-1.61 (0.15%)</span></p>
+<p class="free">freeCodeCamo.org <span class="code">@freeCodeCamp 1h</span></p>
+<p class="as">As a web developer, you'll want to make your projects easy to use and navigate around. </p>
+<p class="here">Here <span class="chp">@chp_it</span> outlinr the top skills new developers should have.</p>
