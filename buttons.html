@@ -1,305 +1,327 @@
-<style>
- .subscribe{
-     background-color: rgb(200,0, 0);
-     color: white;
-     border: none;
-     padding-bottom: 10px;
-     padding-top: 10px;
-     padding-right: 16px;
-     padding-left: 16px;
-     border-radius: 2px;
-     cursor : pointer;
-     transition: 0.3s;
-    
- }
-  .subscribe:hover{
-    opacity: 0.8;
-    box-shadow: 0px 5px 10px rgba(0,0,0,0.6);
-    padding-bottom: 45;
-    padding-top: 45;
+<!DOCTYPE html>
+<html>
 
-   }
-   .subscribe:active{
-      opacity:0.6
-   }
+<head>
 
- .tweet{
-     background-color: rgb(72, 152, 202);
-     color: white;
-     border: none;
-     padding-bottom: 10;
-     padding-top: 10;
-     padding-left: 17;
-     padding-right: 17;
-     font-weight:bold;
-     font-size:15px;
-     border-radius: 18px;
-     cursor : pointer;
-     margin-left: 10px;
-     transition: 0.3s;
-    
- }
-   .tweet:hover{
-    opacity: 0.8;
-    box-shadow: 0px 5px 10px rgba(0,0,0,0.6);
-    padding-left: 56;
-    padding-right: 56;
+<body>
+   <style>
+      .subscribe {
+         background-color: rgb(200, 0, 0);
+         color: white;
+         border: none;
+         padding-bottom: 10px;
+         padding-top: 10px;
+         padding-right: 16px;
+         padding-left: 16px;
+         border-radius: 2px;
+         cursor: pointer;
+         transition: 0.3s;
 
-   }
-   .tweet:active{
-      opacity:0.6
-   }
-  .join{
-     background-color: white;
-     color:  rgb(41, 118, 217);
-     border-width: 1px;
-     border-style: solid;
-     border-color: rgb(41, 118, 217);
-     padding-bottom: 10;
-     padding-top: 10;
-     padding-left: 17;
-     padding-right: 17;
-     border-radius: 2px;
-     cursor : pointer;
-     margin-left: 10px;
-     transition: 0.3s;
-     
+      }
 
-  }
-  
-  .join:hover{
-    opacity: 0.8;
-    background-color:rgb(41, 118, 217);
-    color:azure;
-    box-shadow: 0px 5px 10px rgba(0,0,0,0.6);
-    padding-right: 36;
-    padding-left: 36;
-    padding-top: 26;
-    padding-bottom: 26;
+      .subscribe:hover {
+         opacity: 0.8;
+         box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.6);
+         padding-bottom: 45px;
+         padding-top: 45px;
 
-   }
-   .join:active{
-      opacity:0.6
-   }
-   
-   .uber{
-     background-color: black;
-     color:  white;
-     border:none;
-     padding-bottom: 10;
-     padding-top: 10;
-     padding-left: 17;
-     padding-right: 17;
-     border-radius: 2px;
-     cursor : pointer;
-     margin-left: 10px;
-     transition: 0.15s;
-  }
-  
-    .uber:hover{
-    opacity: 0.8;
-    box-shadow: 0px 5px 10px rgba(0,0,0,0.6);
+      }
 
-   }
-   .uber:active{
-      opacity:0.6
-   }
-   
-  .amazon{
-     background-color: rgb(255,216,20);
-     color:  black;
-     border:none;
-     padding-bottom: 10;
-     padding-top: 10;
-     padding-left: 55;
-     padding-right: 55;
-     border-radius: 20px;
-     cursor : pointer;
-     margin-left: 10px;
-     transition: 0.15s;
-  } 
+      .subscribe:active {
+         opacity: 0.6
+      }
 
-    .amazon:hover{
-    opacity: 0.8;
-    box-shadow: 0px 5px 10px rgba(0,0,0,0.6);
+      .tweet {
+         background-color: rgb(72, 152, 202);
+         color: white;
+         border: none;
+         padding-bottom: 10px;
+         padding-top: 10px;
+         padding-left: 17px;
+         padding-right: 17px;
+         font-weight: bold;
+         font-size: 15px;
+         border-radius: 18px;
+         cursor: pointer;
+         margin-left: 10px;
+         transition: 0.3s;
 
-   }
-   .amazon:active{
-      opacity:0.6
-   }
-  
-  .github{
-     background-color: rgb(46,164,79);
-     color:  white;
-     border:none;
-     padding-bottom: 10;
-     padding-top: 10;
-     padding-left: 17;
-     padding-right: 17;
-      font-weight:bold;
-     border-radius: 6px;
-     cursor : pointer;
-     margin-left: 10px;
-     transition: 0.15s;
-  }  
-  
-  .github:hover{
-    opacity: 0.8;
-    box-shadow: 0px 5px 10px rgba(0,0,0,0.6);
+      }
 
-   }
-   .github:active{
-      opacity:0.6
-   }
-  
-  .boot{
-     background-color: rgb(121,82,179);
-     color:  white;
-     border:none;
-    
-     font-weight:bold;
-     font-size:12px;
-     padding-bottom: 10;
-     padding-top: 10;
-     padding-left: 17;
-     padding-right: 17;
-     border-radius: 2px;
-     cursor : pointer;
-     margin-left: 10px;
-     transition: 0.15s;
-  } 
-  
-  .boot:hover{
-    opacity: 0.8;
-    box-shadow: 0px 5px 10px rgba(0,0,0,0.6);
+      .tweet:hover {
+         opacity: 0.8;
+         box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.6);
+         padding-left: 56px;
+         padding-right: 56px;
 
-   }
-   .boot:active{
-      opacity:0.6
-   } 
-  
-  .strap{
-     background-color: white;
-     color:  rgb(108,117,125);
-     border-width: 1px;
-     border-style: solid;
-     font-weight:bold;
-     font-size:12px;
-     border-color: rgb(108,117,125);
-     padding-bottom: 10;
-     padding-top: 10;
-     padding-left: 17;
-     padding-right: 17;
-     border-radius: 2px;
-     cursor : pointer;
-     margin-left: 10px;
-     transition: 0.15s;
-  }  
-  
-  .strap:hover{
-    opacity: 0.8;
-    background-color: rgb(108,117,125);
-    color: white ;
-    box-shadow: 0px 5px 10px rgba(0,0,0,0.6);
+      }
 
-   }
-   .strap:active{
-      opacity:0.6
-   }
-  
-  .link{
-     background-color: rgb(10,102,194);
-     color:  white;
-     border:none;
-   
-     font-weight:bold;
-      padding-bottom: 10;
-     padding-top: 10;
-     padding-left: 23;
-     padding-right: 23;
-     border-radius: 20px;
-     cursor : pointer;
-     margin-left: 10px;
-     transition: 0.15s;
-  }  
-  
-  .link:hover{
-    opacity: 0.8;
-    box-shadow: 0px 5px 10px rgba(0,0,0,0.6);
-   
-   }
-   .link:active{
-      opacity:0.6
-   }
-  
-  .in{
-     background-color: white;
-     color:  rgb(10,102,194);
-     border-width: 1px;
-     border-style: solid;
-     font-weight:bold;
-     border-color: rgb(10,102,194);
-     padding-bottom: 10;
-     padding-top: 10;
-     padding-left: 17;
-     padding-right: 17;
-     border-radius: 20px;
-     cursor : pointer;
-     margin-left: 10px;
-     transition: 0.15s;
-  }
-     
-  .in:hover{
-    opacity: 0.8;
-    background-color:rgb(10,102,194);
-    color: white;
-    box-shadow: 0px 5px 10px rgba(0,0,0,0.6);
-   }
-   .in:active{
-      opacity:0.6
-   
-   }
- 
+      .tweet:active {
+         opacity: 0.6
+      }
 
-</style>
+      .join {
+         background-color: white;
+         color: rgb(41, 118, 217);
+         border-width: 1px;
+         border-style: solid;
+         border-color: rgb(41, 118, 217);
+         padding-bottom: 10px;
+         padding-top: 10px;
+         padding-left: 17px;
+         padding-right: 17px;
+         border-radius: 2px;
+         cursor: pointer;
+         margin-left: 10px;
+         transition: 0.3s;
 
-<button class="subscribe">
-  SUBSCRIBE
-</button>
 
-<button class="tweet">
-  Tweet
-</button>
+      }
 
-<button class="uber">
- Request now 
-</button>
+      .join:hover {
+         opacity: 0.8;
+         background-color: rgb(41, 118, 217);
+         color: azure;
+         box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.6);
+         padding-right: 36px;
+         padding-left: 36px;
+         padding-top: 26px;
+         padding-bottom: 26px;
 
-<button class="amazon">
- Add to Cart
-</button>
+      }
 
-<button class="github">
- Sign up 
-</button>
+      .join:active {
+         opacity: 0.6
+      }
 
-<button class="boot">
- Get Started
-</button>
+      .uber {
+         background-color: black;
+         color: white;
+         border: none;
+         padding-bottom: 10px;
+         padding-top: 10px;
+         padding-left: 17px;
+         padding-right: 17px;
+         border-radius: 2px;
+         cursor: pointer;
+         margin-left: 10px;
+         transition: 0.15s;
+      }
 
-<button class="strap">
- Download 
-</button>
+      .uber:hover {
+         opacity: 0.8;
+         box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.6);
 
-<button class="link">
- Apply on company website
-</button>
+      }
 
-<button class="in">
- Save
-</button>
+      .uber:active {
+         opacity: 0.6
+      }
 
-<button class="join">
- JOIN 
-</button>
+      .amazon {
+         background-color: rgb(255, 216, 20);
+         color: black;
+         border: none;
+         padding-bottom: 10px;
+         padding-top: 10px;
+         padding-left: 55px;
+         padding-right: 55px;
+         border-radius: 20px;
+         cursor: pointer;
+         margin-left: 10px;
+         transition: 0.15s;
+      }
 
+      .amazon:hover {
+         opacity: 0.8;
+         box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.6);
+
+      }
+
+      .amazon:active {
+         opacity: 0.6
+      }
+
+      .github {
+         background-color: rgb(46, 164, 79);
+         color: white;
+         border: none;
+         padding-bottom: 10px;
+         padding-top: 10px;
+         padding-left: 17px;
+         padding-right: 17px;
+         font-weight: bold;
+         border-radius: 6px;
+         cursor: pointer;
+         margin-left: 10px;
+         transition: 0.15s;
+      }
+
+      .github:hover {
+         opacity: 0.8;
+         box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.6);
+
+      }
+
+      .github:active {
+         opacity: 0.6
+      }
+
+      .boot {
+         background-color: rgb(121, 82, 179);
+         color: white;
+         border: none;
+
+         font-weight: bold;
+         font-size: 12px;
+         padding-bottom: 10px;
+         padding-top: 10px;
+         padding-left: 17px;
+         padding-right: 17px;
+         border-radius: 2px;
+         cursor: pointer;
+         margin-left: 10px;
+         transition: 0.15s;
+      }
+
+      .boot:hover {
+         opacity: 0.8;
+         box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.6);
+
+      }
+
+      .boot:active {
+         opacity: 0.6
+      }
+
+      .strap {
+         background-color: white;
+         color: rgb(108, 117, 125);
+         border-width: 1px;
+         border-style: solid;
+         font-weight: bold;
+         font-size: 12px;
+         border-color: rgb(108, 117, 125);
+         padding-bottom: 10px;
+         padding-top: 10px;
+         padding-left: 17px;
+         padding-right: 17px;
+         border-radius: 2px;
+         cursor: pointer;
+         margin-left: 10px;
+         transition: 0.15s;
+      }
+
+      .strap:hover {
+         opacity: 0.8;
+         background-color: rgb(108, 117, 125);
+         color: white;
+         box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.6);
+
+      }
+
+      .strap:active {
+         opacity: 0.6
+      }
+
+      .link {
+         background-color: rgb(10, 102, 194);
+         color: white;
+         border: none;
+
+         font-weight: bold;
+         padding-bottom: 10px;
+         padding-top: 10px;
+         padding-left: 23px;
+         padding-right: 23px;
+         border-radius: 20px;
+         cursor: pointer;
+         margin-left: 10px;
+         transition: 0.15s;
+      }
+
+      .link:hover {
+         opacity: 0.8;
+         box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.6);
+
+      }
+
+      .link:active {
+         opacity: 0.6
+      }
+
+      .in {
+         background-color: white;
+         color: rgb(10, 102, 194);
+         border-width: 1px;
+         border-style: solid;
+         font-weight: bold;
+         border-color: rgb(10, 102, 194);
+         padding-bottom: 10px;
+         padding-top: 10px;
+         padding-left: 17px;
+         padding-right: 17px;
+         border-radius: 20px;
+         cursor: pointer;
+         margin-left: 10px;
+         transition: 0.15s;
+      }
+
+      .in:hover {
+         opacity: 0.8;
+         background-color: rgb(10, 102, 194);
+         color: white;
+         box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.6);
+      }
+
+      .in:active {
+         opacity: 0.6
+      }
+   </style>
+
+
+   <button class="subscribe">
+      SUBSCRIBE
+   </button>
+
+   <button class="tweet">
+      Tweet
+   </button>
+
+   <button class="uber">
+      Request now
+   </button>
+
+   <button class="amazon">
+      Add to Cart
+   </button>
+
+   <button class="github">
+      Sign up
+   </button>
+
+   <button class="boot">
+      Get Started
+   </button>
+
+   <button class="strap">
+      Download
+   </button>
+
+   <button class="link">
+      Apply on company website
+   </button>
+
+   <button class="in">
+      Save
+   </button>
+
+   <button class="join">
+      JOIN
+   </button>
+
+
+</body>
+</head>
+
+</html>
